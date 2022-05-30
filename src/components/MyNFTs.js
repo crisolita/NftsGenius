@@ -1,0 +1,235 @@
+import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Row, Col, Form, Spinner, Modal } from "react-bootstrap";
+import Swal from "sweetalert2";
+import { useWeb3React, Web3ReactProvider } from "@web3-react/core";
+import { Contract, ethers } from "ethers";
+import arrowLeft from "../assets/png/NFT Solidario-08.png";
+import arrowRight from "../assets/png/NFT Solidario-09.png";
+import Dropzone from "react-dropzone";
+import { client, GET_ERC1155_NEWS, GET_SALES } from "../querys/subgraph";
+
+import {
+  categorias,
+  marketplace_abi,
+  marketplace_address,
+  NFT1155_abi,
+  NFT1155_address,
+} from "../utils/constants";
+import ipfs from "../utils/ipfs";
+import axios from "axios";
+import ItemCard from "./ItemCard";
+import { EtherscanProvider } from "@ethersproject/providers";
+import { EventEmitter } from "stream";
+
+export const MyNFTs = () => {
+  const DEPLOY_BLOCK = 19473866;
+  const { account, library } = useWeb3React();
+  const [NFTcontract, setNFTcontract] = useState();
+  const [MRKTcontract, setMRKTcontract] = useState();
+  const [allNFTs, setAllNFTs] = useState([]);
+  const [carrouselNFTs, setCarrouselNFTs] = useState([]);
+
+  useEffect(() => {
+    if (library) {
+      setNFTcontract(
+        new Contract(NFT1155_address, NFT1155_abi, library.getSigner())
+      );
+      setMRKTcontract(
+        new Contract(marketplace_address, marketplace_abi, library.getSigner())
+      );
+    }
+  }, [library]);
+
+  const loadNFTs = async () => {
+    let allEvents = [];
+    const { tokens } = await client.request(GET_ERC1155_NEWS());
+    const { sales } = await client.request(GET_SALES());
+
+    console.log(tokens, "los NFTs");
+    console.log(sales, "las ventas");
+
+    const events = await NFTcontract.queryFilter(
+      NFTcontract.filters.newNFT(),
+      19648435,
+      19648490
+    );
+
+    for (const element of events) {
+      let x = await NFTcontract.uri(element.args.id);
+      let resp = await axios.get(
+        `https://ipfs.infura.io/ipfs/${x.split("ipfs://").join("")}`
+      );
+      let isVideo = false;
+      let cat = "";
+      resp.data.attributes.forEach((element) => {
+        if (element.trait_type === "Video") {
+          isVideo = element.value;
+        }
+        if (element.trait_type === "Category") {
+          cat = element.value;
+        }
+      });
+      resp.data.image = `https://ipfs.infura.io/ipfs/${resp.data.image
+        .split("ipfs://")
+        .join("")}`;
+      allEvents.push({
+        ...element,
+        isVideo,
+        id: element.args.id.toString(),
+        data: resp.data,
+        price: "",
+        category: cat,
+      });
+    }
+    // let sellOrders = await MRKTcontract.queryFilter(
+    //   MRKTcontract.filters.Sell(),
+    //   19566631,
+    //   19566631
+    // );
+    // let lowerPrice = 0;
+    // console.log(sellOrders);
+    // for (const element2 of sellOrders) {
+    //   const order = element2.returnValues;
+    //   if (String(order.tokenId) === String(element.returnValues.id)) {
+    //     const details = await MRKTcontract.orders(order.orderId).call();
+    //     if (details.active) {
+    //       let x = {};
+    //       x.seller = details.seller;
+    //       x.amount = Number(details.amount);
+    //       x.price = ethers.utils.parseUnits(String(details.price), "wei");
+    //       if (lowerPrice === 0) lowerPrice = parseFloat(x.price);
+    //       if (parseFloat(x.price) < lowerPrice)
+    //         lowerPrice = parseFloat(x.price);
+    //     }
+    //   }
+
+    setAllNFTs(allEvents);
+  };
+
+  useEffect(() => {
+    if (library && NFTcontract) {
+      loadNFTs();
+    }
+  }, [library, NFTcontract]);
+  // Component State
+  const carrouselWidth = () => {
+    if (window.innerWidth < 600) return "10%";
+    if (window.innerWidth < 800) return "8%";
+    if (window.innerWidth < 1000) return "6%";
+    if (window.innerWidth < 1200) return "4%";
+    return "3%";
+  };
+  const [changing, setChanging] = useState(false);
+
+  useEffect(() => {
+    setChanging(false);
+  }, [changing]);
+
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
+  useEffect(() => {
+    let perPage = 0;
+    if (window.innerWidth < 768) perPage = 1;
+    else if (window.innerWidth < 1100) perPage = 2;
+    else perPage = 3;
+
+    let ordered = JSON.parse(JSON.stringify(allNFTs));
+    ordered.sort((a, b) => {
+      if (a.price < b.price) return 1;
+      else return -1;
+    });
+    ordered = ordered.slice(0, 9);
+
+    setCarrouselNFTs(
+      ordered?.reduce((all, one, i) => {
+        const ch = Math.floor(i / perPage);
+        all[ch] = [].concat(all[ch] || [], one);
+        return all;
+      }, [])
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allNFTs]);
+  const cardWidth = () => {
+    if (window.innerWidth < 600) return "70%";
+    if (window.innerWidth < 800) return "50%";
+    if (window.innerWidth < 1000) return "40%";
+    if (window.innerWidth < 1200) return "30%";
+    return "25%";
+  };
+  return (
+    <>
+      {carrouselNFTs?.length > 0 && (
+        <Col
+          sm={10}
+          className="mx-auto mt-sm-4 mt-md-5"
+          style={{ height: "fit-content" }}
+        >
+          <div
+            id="carouselExampleControls"
+            className="carousel slide"
+            data-ride="carousel"
+          >
+            <div className="carousel-inner mx-auto" style={{ width: "94%" }}>
+              {carrouselNFTs?.map((page, index) => (
+                <div
+                  className={`carousel-item ${index === 0 ? "active" : ""}`}
+                  key={`carrouser${index}`}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    {page.map((item, key) => (
+                      <Link
+                        to={`/item/${item.id}`}
+                        className="dashboard-item-card"
+                        key={`card${key}`}
+                        style={{
+                          textDecoration: "none",
+                          width: `${cardWidth()}`,
+                          heigth: "100%",
+                        }}
+                      >
+                        <ItemCard item={item} />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <a
+              className="carousel-control-prev"
+              style={{ width: `${carrouselWidth()}` }}
+              href="#carouselExampleControls"
+              role="button"
+              data-slide="prev"
+            >
+              <img src={arrowLeft} alt="" style={{ width: "100%" }} />
+              <span className="sr-only">Previous</span>
+            </a>
+            <a
+              className="carousel-control-next"
+              style={{ width: `${carrouselWidth()}` }}
+              href="#carouselExampleControls"
+              role="button"
+              data-slide="next"
+            >
+              <img src={arrowRight} alt="" style={{ width: "100%" }} />
+              <span className="sr-only">Next</span>
+            </a>
+          </div>
+        </Col>
+      )}
+    </>
+  );
+};
+export default MyNFTs;

@@ -1,0 +1,29 @@
+.item-container{
+  width: 100%;
+  margin: 0px 2.5%;
+  padding: 20px 20px 0px 20px;
+  overflow: auto;
+  height: fit-content;
+}
+
+.item-card{
+  background-color: #ffffff;
+  border: 1px solid lightgray;
+  border-radius: 12px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.item-button{
+  width: fit-content;
+  padding: 0.25rem 1.5rem;
+  background-color: #00c84b;
+  border-radius: 20px;
+  border: 1px solid #00c84b;
+  color: white;
+  font-weight: bold;
+}
+
+.item-button:focus{
+  outline: 1px solid #00c84b;
+}
