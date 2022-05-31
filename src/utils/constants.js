@@ -1518,3 +1518,5 @@ export const marketplace_address = "0x6484e86bB27dB01C8be713Cb4Cd9142244ff0e2c";
 export const NFT1155_address = "0x22579232C06149354A902E0c25acba1f250bcF48";
 export const categorias = ["Generico"];
 export const DEPLOY_BLOCK = 9495730;
+export const DEFAULT_ADMIN =
+  "0x0000000000000000000000000000000000000000000000000000000000000000";
