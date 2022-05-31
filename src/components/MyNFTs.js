@@ -163,73 +163,118 @@ export const MyNFTs = () => {
     return "25%";
   };
   return (
-    <>
-      {carrouselNFTs?.length > 0 && (
-        <Col
-          sm={10}
-          className="mx-auto mt-sm-4 mt-md-5"
-          style={{ height: "fit-content" }}
-        >
-          <div
-            id="carouselExampleControls"
-            className="carousel slide"
-            data-ride="carousel"
-          >
-            <div className="carousel-inner mx-auto" style={{ width: "94%" }}>
-              {carrouselNFTs?.map((page, index) => (
-                <div
-                  className={`carousel-item ${index === 0 ? "active" : ""}`}
-                  key={`carrouser${index}`}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    {page.map((item, key) => (
-                      <Link
-                        to={`/item/${item.id}`}
-                        className="dashboard-item-card"
-                        key={`card${key}`}
-                        style={{
-                          textDecoration: "none",
-                          width: `${cardWidth()}`,
-                          heigth: "100%",
-                        }}
-                      >
-                        <ItemCard item={item} />
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
+    <div className="mynfts-container">
+      {carrouselNFTs[0]?.map((o) => {
+        console.log(o);
+        return (
+          <div className="nft--card--container">
+            <div className="nft--card--details">
+              <div className="nft--card--details-price">0xC2...823e</div>
+              <div className="nft--card--details-price">
+                {o?.category ? o.category : "NFT"}
+              </div>
+              {/* <a
+                href={`https://etherscan.io/address/${o?.creator}`}
+                target="_blank"
+                className="account-link ml-2"
+                rel="noreferrer"
+              >
+                {o?.creator.substring(0, 6) +
+                  "..." +
+                  o?.creator.substring(38, 42)}
+              </a> */}
             </div>
-            <a
-              className="carousel-control-prev"
-              style={{ width: `${carrouselWidth()}` }}
-              href="#carouselExampleControls"
-              role="button"
-              data-slide="prev"
-            >
-              <img src={arrowLeft} alt="" style={{ width: "100%" }} />
-              <span className="sr-only">Previous</span>
-            </a>
-            <a
-              className="carousel-control-next"
-              style={{ width: `${carrouselWidth()}` }}
-              href="#carouselExampleControls"
-              role="button"
-              data-slide="next"
-            >
-              <img src={arrowRight} alt="" style={{ width: "100%" }} />
-              <span className="sr-only">Next</span>
-            </a>
+            <div className="nft--card--image">
+              {o.isVideo ? (
+                <iframe
+                  title="Video"
+                  style={{ height: "100%", width: "100%" }}
+                  src={o.data.image}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <img
+                  src={o.data.image}
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              )}
+            </div>
+
+            <div className="nft--card--name">{o.data.name}</div>
+            <div className="nft--card--details">
+              <div className="nft--card--details-price">
+                <div className="nft--card--details-price-title">from</div>
+                {o?.price ? o.price : "420.69 ETH"}
+              </div>
+              <div className="nft--card--details-amount">
+                #{o?.amount ? o.amount : 99}
+              </div>
+            </div>
           </div>
-        </Col>
-      )}
-    </>
+        );
+      })}
+      {carrouselNFTs[0]?.map((o) => {
+        console.log(o);
+        return (
+          <div className="nft--card--container">
+            <div className="nft--card--details">
+              <div className="nft--card--details-price">0xC2...823e</div>
+              <div className="nft--card--details-price">
+                {o?.category ? o.category : "NFT"}
+              </div>
+              {/* <a
+                href={`https://etherscan.io/address/${o?.creator}`}
+                target="_blank"
+                className="account-link ml-2"
+                rel="noreferrer"
+              >
+                {o?.creator.substring(0, 6) +
+                  "..." +
+                  o?.creator.substring(38, 42)}
+              </a> */}
+            </div>
+            <div className="nft--card--image">
+              {o.isVideo ? (
+                <iframe
+                  title="Video"
+                  style={{ height: "100%", width: "100%" }}
+                  src={o.data.image}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <img
+                  src={o.data.image}
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              )}
+            </div>
+
+            <div className="nft--card--name">{o.data.name}</div>
+            <div className="nft--card--details">
+              <div className="nft--card--details-price">
+                <div className="nft--card--details-price-title">from</div>
+                {o?.price ? o.price : "420.69 ETH"}
+              </div>
+              <div className="nft--card--details-amount">
+                #{o?.amount ? o.amount : 99}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 export default MyNFTs;
