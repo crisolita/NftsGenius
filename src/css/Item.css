@@ -215,6 +215,12 @@
   display: flex;
   justify-content: center;
 }
+.nft-detail-info-container-button-double {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
 .nft-detail-info-button {
   background: linear-gradient(
       0deg,

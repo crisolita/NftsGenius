@@ -140,15 +140,36 @@ const Item = () => {
                   </div>
                 </div>
               </div>
-              <div className="nft-detail-info-container-button">
-                <button
-                  disabled={loadingBuy}
-                  type="button"
-                  className="nft-detail-info-button"
-                >
-                  Comprar
-                </button>
-              </div>
+              {account !== item.creator ? (
+                <div className="nft-detail-info-container-button-double">
+                  <button
+                    disabled={loadingBuy}
+                    type="button"
+                    onClick={() => setShowModalTransfer(true)}
+                    className="nft-detail-info-button"
+                  >
+                    Transferir
+                  </button>
+                  <button
+                    disabled={loadingBuy}
+                    type="button"
+                    onClick={() => setShowModal(true)}
+                    className="nft-detail-info-button"
+                  >
+                    Vender
+                  </button>
+                </div>
+              ) : (
+                <div className="nft-detail-info-container-button">
+                  <button
+                    disabled={loadingBuy}
+                    type="button"
+                    className="nft-detail-info-button"
+                  >
+                    Comprar
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}

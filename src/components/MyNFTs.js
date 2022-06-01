@@ -45,44 +45,55 @@ export const MyNFTs = () => {
   const loadNFTs = async () => {
     let allEvents = [];
     const { tokens } = await client.request(GET_ERC1155_NEWS());
-    const { sales } = await client.request(GET_SALES());
+    // const { sales } = await client.request(GET_SALES());
+    // console.log(tokens, "los NFTs");
+    // console.log(sales, "las ventas");
 
-    console.log(tokens, "los NFTs");
-    console.log(sales, "las ventas");
-
-    const events = await NFTcontract.queryFilter(
-      NFTcontract.filters.newNFT(),
-      19648435,
-      19648490
-    );
-
-    for (const element of events) {
-      let x = await NFTcontract.uri(element.args.id);
-      let resp = await axios.get(
-        `https://ipfs.infura.io/ipfs/${x.split("ipfs://").join("")}`
+    // const events = await NFTcontract.queryFilter(
+    //   NFTcontract.filters.newNFT(),
+    //   19648435,
+    //   19648490
+    // );
+    let tempArr = [];
+    for (var i = 0; i < tokens.length - 1; i++) {
+      let tempObj = {};
+      let response = await axios.get(
+        `https://ipfs.infura.io/ipfs/${tokens[i].uri.split("ipfs://").join("")}`
       );
-      let isVideo = false;
-      let cat = "";
-      resp.data.attributes.forEach((element) => {
-        if (element.trait_type === "Video") {
-          isVideo = element.value;
-        }
-        if (element.trait_type === "Category") {
-          cat = element.value;
-        }
-      });
-      resp.data.image = `https://ipfs.infura.io/ipfs/${resp.data.image
-        .split("ipfs://")
-        .join("")}`;
-      allEvents.push({
-        ...element,
-        isVideo,
-        id: element.args.id.toString(),
-        data: resp.data,
-        price: "",
-        category: cat,
-      });
+
+      tempObj = response.data;
+      tempObj.id = tokens[i].id;
+      tempObj.amount = tokens[i].amount;
+      tempObj.creator = tokens[i].creator;
+      tempArr.push(tempObj);
     }
+    // for (const element of events) {
+    //   let x = await NFTcontract.uri(element.args.id);
+    //   let resp = await axios.get(
+    //     `https://ipfs.infura.io/ipfs/${x.split("ipfs://").join("")}`
+    //   );
+    //   let isVideo = false;
+    //   let cat = "";
+    //   resp.data.attributes.forEach((element) => {
+    //     if (element.trait_type === "Video") {
+    //       isVideo = element.value;
+    //     }
+    //     if (element.trait_type === "Category") {
+    //       cat = element.value;
+    //     }
+    //   });
+    //   resp.data.image = `https://ipfs.infura.io/ipfs/${resp.data.image
+    //     .split("ipfs://")
+    //     .join("")}`;
+    //   allEvents.push({
+    //     ...element,
+    //     isVideo,
+    //     id: element.args.id.toString(),
+    //     data: resp.data,
+    //     price: "",
+    //     category: cat,
+    //   });
+    // }
     // let sellOrders = await MRKTcontract.queryFilter(
     //   MRKTcontract.filters.Sell(),
     //   19566631,
@@ -105,7 +116,7 @@ export const MyNFTs = () => {
     //     }
     //   }
 
-    setAllNFTs(allEvents);
+    setAllNFTs(tempArr);
   };
 
   useEffect(() => {
@@ -150,7 +161,7 @@ export const MyNFTs = () => {
 
   return (
     <div className="mynfts-container">
-      {carrouselNFTs[0]?.map((o) => {
+      {allNFTs?.map((o) => {
         console.log(o);
         return (
           <Link
@@ -159,31 +170,29 @@ export const MyNFTs = () => {
             key={o.id}
           >
             <div className="nft--card--details">
-              <div
-                // href={`https://etherscan.io/address/${o.address}`}
-                // target="_blank"
-                className="nft--card--details-price"
-                // rel="noreferrer"
-                // style={{ color: "revert" }}
-              >
-                {o?.address.substring(0, 6) +
+              <div className="nft--card--details-price">
+                {o?.creator.substring(0, 6) +
                   "..." +
-                  o?.address.substring(38, 42)}
+                  o?.creator.substring(38, 42)}
               </div>
             </div>
             <div className="nft--card--image">
-              {o.isVideo ? (
+              {o?.isVideo ? (
                 <iframe
                   title="Video"
                   style={{ height: "100%", width: "100%" }}
-                  src={o.data.image}
+                  src={`https://ipfs.infura.io/ipfs/${o.image
+                    .split("ipfs://")
+                    .join("")}`}
                   frameBorder="0"
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
               ) : (
                 <img
-                  src={o.data.image}
+                  src={`https://ipfs.infura.io/ipfs/${o.image
+                    .split("ipfs://")
+                    .join("")}`}
                   style={{
                     height: "100%",
                     width: "100%",
@@ -193,7 +202,7 @@ export const MyNFTs = () => {
               )}
             </div>
 
-            <div className="nft--card--name">{o.data.name}</div>
+            <div className="nft--card--name">{o.name}</div>
             <div className="nft--card--details">
               <div className="nft--card--details-price">
                 {o?.price ? o.price + " BNB" : "420.69 BNB"}
