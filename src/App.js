@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./css/App.scss";
 
 import Header from "./components/Header";
@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Main />} />
         <Route exact path="/CreateNFT" element={<CreateNFT />} />
-        <Route exact path="/MyNFTs" element={<MyNFTs />} />
+        <Route exact path="/catalogo" element={<MyNFTs />} />
         <Route exact path="/item/:id" element={<Item />} />
       </Routes>
       <Footer />
