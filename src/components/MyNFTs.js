@@ -29,6 +29,7 @@ export const MyNFTs = () => {
   const [MRKTcontract, setMRKTcontract] = useState();
   const [allNFTs, setAllNFTs] = useState([]);
   const [carrouselNFTs, setCarrouselNFTs] = useState([]);
+  const [changing, setChanging] = useState(false);
 
   useEffect(() => {
     if (library) {
@@ -112,15 +113,6 @@ export const MyNFTs = () => {
       loadNFTs();
     }
   }, [library, NFTcontract]);
-  // Component State
-  const carrouselWidth = () => {
-    if (window.innerWidth < 600) return "10%";
-    if (window.innerWidth < 800) return "8%";
-    if (window.innerWidth < 1000) return "6%";
-    if (window.innerWidth < 1200) return "4%";
-    return "3%";
-  };
-  const [changing, setChanging] = useState(false);
 
   useEffect(() => {
     setChanging(false);
@@ -155,34 +147,29 @@ export const MyNFTs = () => {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allNFTs]);
-  const cardWidth = () => {
-    if (window.innerWidth < 600) return "70%";
-    if (window.innerWidth < 800) return "50%";
-    if (window.innerWidth < 1000) return "40%";
-    if (window.innerWidth < 1200) return "30%";
-    return "25%";
-  };
+
   return (
     <div className="mynfts-container">
       {carrouselNFTs[0]?.map((o) => {
         console.log(o);
         return (
-          <div className="nft--card--container">
+          <Link
+            to={`/item/${o.id}`}
+            className="nft--card--container"
+            key={o.id}
+          >
             <div className="nft--card--details">
-              <div className="nft--card--details-price">0xC2...823e</div>
-              <div className="nft--card--details-price">
-                {o?.category ? o.category : "NFT"}
-              </div>
-              {/* <a
-                href={`https://etherscan.io/address/${o?.creator}`}
-                target="_blank"
-                className="account-link ml-2"
-                rel="noreferrer"
+              <div
+                // href={`https://etherscan.io/address/${o.address}`}
+                // target="_blank"
+                className="nft--card--details-price"
+                // rel="noreferrer"
+                // style={{ color: "revert" }}
               >
-                {o?.creator.substring(0, 6) +
+                {o?.address.substring(0, 6) +
                   "..." +
-                  o?.creator.substring(38, 42)}
-              </a> */}
+                  o?.address.substring(38, 42)}
+              </div>
             </div>
             <div className="nft--card--image">
               {o.isVideo ? (
@@ -209,69 +196,10 @@ export const MyNFTs = () => {
             <div className="nft--card--name">{o.data.name}</div>
             <div className="nft--card--details">
               <div className="nft--card--details-price">
-                <div className="nft--card--details-price-title">from</div>
-                {o?.price ? o.price : "420.69 ETH"}
-              </div>
-              <div className="nft--card--details-amount">
-                #{o?.amount ? o.amount : 99}
+                {o?.price ? o.price + " BNB" : "420.69 BNB"}
               </div>
             </div>
-          </div>
-        );
-      })}
-      {carrouselNFTs[0]?.map((o) => {
-        console.log(o);
-        return (
-          <div className="nft--card--container">
-            <div className="nft--card--details">
-              <div className="nft--card--details-price">0xC2...823e</div>
-              <div className="nft--card--details-price">
-                {o?.category ? o.category : "NFT"}
-              </div>
-              {/* <a
-                href={`https://etherscan.io/address/${o?.creator}`}
-                target="_blank"
-                className="account-link ml-2"
-                rel="noreferrer"
-              >
-                {o?.creator.substring(0, 6) +
-                  "..." +
-                  o?.creator.substring(38, 42)}
-              </a> */}
-            </div>
-            <div className="nft--card--image">
-              {o.isVideo ? (
-                <iframe
-                  title="Video"
-                  style={{ height: "100%", width: "100%" }}
-                  src={o.data.image}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : (
-                <img
-                  src={o.data.image}
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              )}
-            </div>
-
-            <div className="nft--card--name">{o.data.name}</div>
-            <div className="nft--card--details">
-              <div className="nft--card--details-price">
-                <div className="nft--card--details-price-title">from</div>
-                {o?.price ? o.price : "420.69 ETH"}
-              </div>
-              <div className="nft--card--details-amount">
-                #{o?.amount ? o.amount : 99}
-              </div>
-            </div>
-          </div>
+          </Link>
         );
       })}
     </div>
