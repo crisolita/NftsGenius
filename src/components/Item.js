@@ -61,7 +61,6 @@ const Item = () => {
           </Row>
         ) : (
           <div className="nft-detail-container">
-            {console.log(item)}
             <div className="nft-detail-img">
               {item.isVideo ? (
                 <iframe
@@ -140,7 +139,7 @@ const Item = () => {
                   </div>
                 </div>
               </div>
-              {account !== item.creator ? (
+              {account === item.creator ? (
                 <div className="nft-detail-info-container-button-double">
                   <button
                     disabled={loadingBuy}

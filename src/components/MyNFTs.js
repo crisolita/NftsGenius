@@ -55,16 +55,19 @@ export const MyNFTs = () => {
     //   19648490
     // );
     let tempArr = [];
-    for (var i = 0; i < tokens.length - 1; i++) {
+    let sliceArr = tokens.slice(-11);
+    for (var i = 0; i < sliceArr.length - 1; i++) {
       let tempObj = {};
       let response = await axios.get(
-        `https://ipfs.infura.io/ipfs/${tokens[i].uri.split("ipfs://").join("")}`
+        `https://ipfs.infura.io/ipfs/${sliceArr[i].uri
+          .split("ipfs://")
+          .join("")}`
       );
 
       tempObj = response.data;
-      tempObj.id = tokens[i].id;
-      tempObj.amount = tokens[i].amount;
-      tempObj.creator = tokens[i].creator;
+      tempObj.id = sliceArr[i].id;
+      tempObj.amount = sliceArr[i].amount;
+      tempObj.creator = sliceArr[i].creator;
       tempArr.push(tempObj);
     }
     // for (const element of events) {
@@ -162,7 +165,6 @@ export const MyNFTs = () => {
   return (
     <div className="mynfts-container">
       {allNFTs?.map((o) => {
-        console.log(o);
         return (
           <Link
             to={`/item/${o.id}`}

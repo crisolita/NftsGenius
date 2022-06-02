@@ -153,7 +153,6 @@ const ItemLogic = () => {
             from: account,
           });
         }
-        console.log("estoy aqui dos veces");
 
         await MRKTcontract.sell(
           id,

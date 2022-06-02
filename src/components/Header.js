@@ -42,7 +42,6 @@ const Header = ({ openSidebar, setOpenSidebar }) => {
   const handleAdmin = async (account) => {
     try {
       let thisAccount = await MRKTcontract.hasRole(DEFAULT_ADMIN, account);
-      console.log(thisAccount);
       setIsAdmin(thisAccount);
     } catch (ex) {
       console.log(ex);
@@ -54,7 +53,7 @@ const Header = ({ openSidebar, setOpenSidebar }) => {
       <div className="wrapWidth wrap flex aic">
         <div className="left flex aic">
           <Link to="/">
-            <img src="./images/logo.svg" className="logo-img" />
+            <img src="/images/logo.svg" className="logo-img" />
           </Link>
         </div>
         <div className="right flex aic">
