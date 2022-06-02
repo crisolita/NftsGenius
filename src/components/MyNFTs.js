@@ -68,6 +68,7 @@ export const MyNFTs = () => {
       tempObj.id = sliceArr[i].id;
       tempObj.amount = sliceArr[i].amount;
       tempObj.creator = sliceArr[i].creator;
+      tempObj.price = "1";
       tempArr.push(tempObj);
     }
     // for (const element of events) {
@@ -171,13 +172,7 @@ export const MyNFTs = () => {
             className="nft--card--container"
             key={o.id}
           >
-            <div className="nft--card--details">
-              <div className="nft--card--details-price">
-                {o?.creator.substring(0, 6) +
-                  "..." +
-                  o?.creator.substring(38, 42)}
-              </div>
-            </div>
+            <div className="nft--card--name">{o.name}</div>
             <div className="nft--card--image">
               {o?.isVideo ? (
                 <iframe
@@ -204,10 +199,9 @@ export const MyNFTs = () => {
               )}
             </div>
 
-            <div className="nft--card--name">{o.name}</div>
             <div className="nft--card--details">
               <div className="nft--card--details-price">
-                {o?.price ? o.price + " BNB" : "420.69 BNB"}
+                {o?.price && o.price + " BNB"}
               </div>
             </div>
           </Link>

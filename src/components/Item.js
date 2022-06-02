@@ -1,13 +1,15 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { useEffect } from "react";
-import { Row, Col, Spinner, Button, Modal, Form } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Row, Spinner, Modal, Form } from "react-bootstrap";
 import "../css/Item.css";
+import { client, GET_SALES } from "../querys/subgraph";
 
 // COMPONENTS
 import ItemLogic from "./ItemLogic";
 const Item = () => {
-  const { account, library, active } = useWeb3React();
+  const [isNftBuyable, setisNftBuyable] = useState(false);
   const {
+    id,
     buy,
     sell,
     setSellAmount,
@@ -31,6 +33,7 @@ const Item = () => {
     sellAmount,
     loadingTransfer,
     itemPrice,
+    isOwnerAmount,
     // ownerContent,
     // amountOwn
   } = ItemLogic();
@@ -42,6 +45,22 @@ const Item = () => {
       behavior: "smooth",
     });
   }, []);
+  useEffect(() => {
+    isBuyableNftHandler();
+  }, []);
+
+  const isBuyableNftHandler = async () => {
+    const { sales } = await client.request(GET_SALES());
+    sales.map((o) => {
+      if (parseInt(o.tokenID) === parseInt(id)) return setisNftBuyable(o);
+    });
+  };
+  const BuyToken = () => {
+    buy({
+      orderId: isNftBuyable.id,
+      price: isNftBuyable.price,
+    });
+  };
 
   return (
     <div className="container-app">
@@ -110,39 +129,53 @@ const Item = () => {
                 {item?.data?.description.split("Metadata JSON:")[0]}
               </div>
               <div className="nft-detail-info-divider" />
-              {item?.data?.attributes?.map(
-                (element, key) =>
-                  element.trait_type !== "Video" && (
-                    <div className="nft-detail-info-creator">
-                      <div className="nft-detail-info-creator-title">
-                        {element.trait_type}
-                      </div>
-                      {element.value}
-                    </div>
-                  )
-              )}
-              {/* <div className="nft-detail-info-divider" /> */}
-              <div className="nft-detail-info-stats">
-                {console.log(sellOffers)}
-                <div className="nft-detail-info-stats-option">
-                  <div className="nft-detail-info-stats-option-title">1</div>
-                  <div className="nft-detail-info-stats-option-value">
-                    Cantidad
-                  </div>
-                </div>
-                <div className="nft-detail-info-stats-option">
-                  <div className="nft-detail-info-stats-option-title">
-                    {itemPrice} BNB
-                  </div>
-                  <div className="nft-detail-info-stats-option-value">
-                    Precio Total
-                  </div>
-                </div>
+
+              <div className="nft-detail-info-creator">
+                <div className="nft-detail-info-creator-title">Categoria</div>
+                {item.data?.attributes[0]?.category}
               </div>
-              {account === item.creator ? (
+              <div className="nft-detail-info-creator">
+                <div className="nft-detail-info-creator-title">Monto</div>
+                {item.data?.attributes[1]?.amount}
+              </div>
+              <div className="nft-detail-info-creator">
+                <div className="nft-detail-info-creator-title">Royalty</div>
+                {item.data?.attributes[2]?.royalty}
+              </div>
+              <div className="nft-detail-info-creator">
+                <div className="nft-detail-info-creator-title">URL externo</div>
+                {item.data?.attributes[3]?.externalUrl}
+              </div>
+
+              {/* <div className="nft-detail-info-divider" /> */}
+              {console.log(isNftBuyable)}
+              {!!isNftBuyable && (
+                <>
+                  <div className="nft-detail-info-stats">
+                    <div className="nft-detail-info-stats-option">
+                      <div className="nft-detail-info-stats-option-title">
+                        {isNftBuyable.amount}
+                      </div>
+                      <div className="nft-detail-info-stats-option-value">
+                        Cantidad
+                      </div>
+                    </div>
+                    <div className="nft-detail-info-stats-option">
+                      <div className="nft-detail-info-stats-option-title">
+                        {isNftBuyable.price / 1_000_000_000_000_000_000} BNB
+                      </div>
+                      <div className="nft-detail-info-stats-option-value">
+                        Precio Total
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {isOwnerAmount > 0 ? (
                 <div className="nft-detail-info-container-button-double">
                   <button
-                    disabled={loadingBuy}
+                    disabled={loadingTransfer}
                     type="button"
                     onClick={() => setShowModalTransfer(true)}
                     className="nft-detail-info-button"
@@ -160,13 +193,20 @@ const Item = () => {
                 </div>
               ) : (
                 <div className="nft-detail-info-container-button">
-                  <button
-                    disabled={loadingBuy}
-                    type="button"
-                    className="nft-detail-info-button"
-                  >
-                    Comprar
-                  </button>
+                  {!!isNftBuyable && (
+                    <button
+                      disabled={loadingBuy}
+                      onClick={() => BuyToken()}
+                      type="button"
+                      className="nft-detail-info-button"
+                    >
+                      {loadingBuy ? (
+                        <Spinner animation="grow" variant="success" />
+                      ) : (
+                        "Comprar"
+                      )}
+                    </button>
+                  )}
                 </div>
               )}
             </div>

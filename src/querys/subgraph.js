@@ -27,6 +27,7 @@ const GET_SALES = () => {
     seller
     amount
     price
+    tokenID
   }}`;
   return gql(queryString);
 };

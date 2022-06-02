@@ -48,6 +48,7 @@ const ItemLogic = () => {
   const [ownerContent, setOwnerContent] = useState("");
   const [amountOwn, setAmountOwn] = useState(0);
   const [sellAmount, setSellAmount] = useState(0);
+  const [isOwnerAmount, setisOwnerAmount] = useState(false);
 
   const getData = async () => {
     if (library && NFTcontract) {
@@ -84,7 +85,6 @@ const ItemLogic = () => {
       }
     }
   };
-
   const transferItem = async (toAddress, id, amount) => {
     await NFTcontract.safeTransferFrom(account, toAddress, id, amount, "0x", {
       from: account,
@@ -124,21 +124,20 @@ const ItemLogic = () => {
       console.log(`error`, error);
     }
   };
-
   const buy = async (order) => {
     if (account) {
       setLoadingBuy(true);
-      await MRKTcontract.buy(order.orderId, {
+      console.log(order);
+      let response = await MRKTcontract.buy(order.orderId, {
         from: account,
-        value: ethers.utils.parseUnits(String(order.price), "ether"),
+        value: order.price,
       });
-
+      console.log(response);
       setLoadingBuy(false);
       getData();
     } else {
     }
   };
-
   const sell = async () => {
     try {
       if (account) {
@@ -176,21 +175,22 @@ const ItemLogic = () => {
   const transfer = async () => {
     if (account) {
       setLoadingTransfer(true);
-      await transferItem(transferTo, id, transferAmount);
+      let x = await transferItem(transferTo, id, transferAmount);
+      console.log(x);
       setTransferTo("");
       setTransferAmount("");
       setLoadingTransfer(false);
       setShowModalTransfer(false);
     }
   };
-  const itemOwner = async (id) => {
+  const itemOwner = async () => {
     if (account && NFTcontract) {
-      let x = await NFTcontract.balanceOf(account, id);
-      return x > 0;
+      let amount = await NFTcontract.balanceOf(account, id);
+      setisOwnerAmount(parseInt(amount.toString()));
     }
   };
 
-  const showOwnerContent = async (id) => {
+  const showOwnerContent = async () => {
     if (account && NFTcontract) {
       let content = await NFTcontract.getOwnerContent(id, {
         from: account,
@@ -200,16 +200,17 @@ const ItemLogic = () => {
   };
   useEffect(() => {
     getData();
-    showOwnerContent(2).then((data) => {
+    showOwnerContent().then((data) => {
       setOwnerContent(data);
     });
-    itemOwner(2).then((resp) => {
+    itemOwner().then((resp) => {
       setIsItemOwner(resp);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account, NFTcontract]);
 
   return {
+    id,
     buy,
     sell,
     setSellPrice,
@@ -236,6 +237,7 @@ const ItemLogic = () => {
     amountOwn,
     setSellAmount,
     sellAmount,
+    isOwnerAmount,
   };
 };
 
