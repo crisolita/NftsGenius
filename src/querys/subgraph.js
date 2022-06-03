@@ -2,7 +2,7 @@ const { GraphQLClient } = require("graphql-request");
 const { gql } = require("graphql-tag");
 
 const client = new GraphQLClient(
-  "https://api.thegraph.com/subgraphs/name/crisolita/marketplace-nft"
+  "https://api.thegraph.com/subgraphs/name/crisolita/nftmarketplace2"
 );
 
 const GET_ERC1155_NEWS = () => {
