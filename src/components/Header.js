@@ -53,17 +53,23 @@ const Header = ({ openSidebar, setOpenSidebar }) => {
       <div className="wrapWidth wrap flex aic">
         <div className="left flex aic">
           <Link to="/">
-            <img src="/images/logo.svg" className="logo-img" />
+            <img src="/images/logo.PNG" className="logo-img" />
           </Link>
         </div>
         <div className="right flex aic">
           <div className="items flex aic">
-            <Link className="item" to="/">
+            <a
+              href="https://www.escuelanuevosnegocios.com/geniusclub"
+              className="item"
+            >
+              CLUB GENIUS
+            </a>
+            {/* <Link className="item" to="/">
               Home
             </Link>
             <Link className="item" to="/catalogo">
               Catalogo
-            </Link>
+            </Link> */}
           </div>
           <div
             className="manue-icon cursor-pointer"

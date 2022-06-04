@@ -268,19 +268,20 @@ body {
           display: flex;
         }
       }
-     .btn {
-          padding: 8px;
-          border-radius: 30px;
-          width: 180px;
-          margin-right: 20px;
-          font-weight: 700;
-          font-size: 12px;
-          &:last-child {
-            margin-right: 0;
-            background: none;
-            border: 1px solid #000000;
-            color: #0a0a0a;
-          }}
+      .btn {
+        padding: 8px;
+        border-radius: 30px;
+        width: 180px;
+        margin-right: 20px;
+        font-weight: 700;
+        font-size: 12px;
+        &:last-child {
+          margin-right: 0;
+          background: none;
+          border: 1px solid #000000;
+          color: #0a0a0a;
+        }
+      }
       .items {
         @media only screen and (max-width: 480px) and (min-width: 320px) {
           display: none;
@@ -301,8 +302,7 @@ body {
 }
 //Create NFT page
 
-
-*{
+* {
   font-family: Metropolis;
 }
 
@@ -321,18 +321,18 @@ code {
     monospace;
 }
 
-.category-select{
+.category-select {
   font-size: 1.3rem;
   margin: 0.5rem;
 }
 
-.category-select:focus{
+.category-select:focus {
   outline: 0;
   box-shadow: 0 0 0 0;
   border-color: #ced4da;
 }
 
-.container-app{
+.container-app {
   min-height: 100vh;
   background-color: white;
   padding: 0;
@@ -341,21 +341,21 @@ code {
   background-size: cover;
 }
 
-.create-card{
+.create-card {
   background-color: white;
   border-radius: 10px;
   height: fit-content;
-  box-shadow: 0px 0px 22px 2px rgba(0,0,0,0.29);
+  box-shadow: 0px 0px 22px 2px rgba(0, 0, 0, 0.29);
 }
 
 .header-container {
   /* height: 8vh; */
-  border-bottom: 1px solid lightgray; 
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.29);
+  border-bottom: 1px solid lightgray;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.29);
   background-color: #fff;
 }
 
-.header-responsive-menu{
+.header-responsive-menu {
   background-color: black;
   color: white;
   height: 0vh;
@@ -365,12 +365,12 @@ code {
   transition: height 0.25s ease-out;
 }
 
-.header-responsive-menu.active{
+.header-responsive-menu.active {
   height: 100vh;
   transition: height 0.25s ease-in;
 }
 
-.header-search{
+.header-search {
   width: 100%;
   border: none;
   color: white;
@@ -378,42 +378,42 @@ code {
   padding: 10px;
 }
 
-.header-search:focus{
+.header-search:focus {
   outline: none;
 }
 
-.catalogo-search{
+.catalogo-search {
   width: 100%;
   border-radius: 30px;
   border: 1px solid lightgray;
   color: grey;
   padding: 10px;
   padding-left: 50px;
-  margin-left:-40px;
+  margin-left: -40px;
 }
 
 .catalogo-search::placeholder {
   color: grey;
 }
 
-.catalogo-search:focus{
+.catalogo-search:focus {
   outline: none;
 }
 
-.header-dropdown{
+.header-dropdown {
   cursor: pointer;
   text-decoration: none;
   color: #424242;
 }
 
-.sidebar-container{
+.sidebar-container {
   width: 20%;
   height: 100%;
   background-color: #ffffff;
   border-right: 1px solid lightgray;
 }
 
-.sidebar-card{
+.sidebar-card {
   border-radius: 0px;
   border: 0px;
   border-bottom: 1px solid lightgray !important;
@@ -421,18 +421,18 @@ code {
   cursor: pointer;
 }
 
-.sidebar-card-header{
+.sidebar-card-header {
   background-color: #ffffff;
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
 }
 
-.sidebar-card-body{
+.sidebar-card-body {
   background-color: #f2f7f7;
 }
 
-.super-center{
+.super-center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -494,8 +494,8 @@ code {
 }
 
 .dashboard-item-card-body p {
-  height: auto!important;
-  padding-bottom: 0.5rem!important;
+  height: auto !important;
+  padding-bottom: 0.5rem !important;
 }
 
 /* .dashboard-item-card-body {
@@ -514,8 +514,10 @@ code {
   bottom: 0;
   left: 0;
   background: linear-gradient(
-  0deg
-  , rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
   width: 100%;
   height: 50%;
 }
@@ -525,29 +527,29 @@ code {
   padding: 10px;
 } */
 
-.banner-text{
+.banner-text {
   margin: 0px 0px 0px 10%;
-  width: 100%; 
+  width: 100%;
   font-size: 2rem;
   color: white;
 }
 
-.banner-catalogo-text{
+.banner-catalogo-text {
   margin: 0px 0px 0px 10%;
-  width: 100%; 
+  width: 100%;
   font-size: 25px;
   color: white;
 }
 
-.banner-description{
+.banner-description {
   margin: 0px 0px 0px 10%;
-  width: 100%; 
+  width: 100%;
   font-size: 0.8rem;
   color: white;
   text-align: justify;
 }
 
-.section-button{
+.section-button {
   border-radius: 20px;
   width: 15%;
   background: transparent;
@@ -557,17 +559,16 @@ code {
   margin: 2%;
 }
 
-.section-button:focus{
+.section-button:focus {
   outline: 0;
 }
 
-
-.section-button.active{
+.section-button.active {
   color: #00c84b;
   border: 1px solid #00c84b;
 }
 
-.banner-button{
+.banner-button {
   border-radius: 20px;
   width: 40%;
   background: transparent;
@@ -575,7 +576,7 @@ code {
   border: 2px solid white;
 }
 
-.banner-button-black{
+.banner-button-black {
   border-radius: 20px;
   width: 40%;
   background: transparent;
@@ -583,21 +584,21 @@ code {
   border: 2px solid black;
 }
 
-.sub-banner-title{
+.sub-banner-title {
   margin: 5rem auto 5rem auto;
   font-size: 20px;
   text-align: center;
   height: fit-content;
 }
 
-.sub-banner-title-search{
+.sub-banner-title-search {
   margin: 8rem auto 2rem auto;
   font-size: 20px;
   text-align: center;
   height: fit-content;
 }
 
-.sub-banner-text{
+.sub-banner-text {
   margin: 2rem auto 2rem auto;
   font-size: 20px;
   text-align: center;
@@ -606,34 +607,34 @@ code {
 }
 
 .account-link {
-  color: #5AA5DA;
+  color: #5aa5da;
 }
 
 #request-button {
-  background-color: #5AA5DA91;
+  background-color: #5aa5da91;
   border-color: #ffffff;
   margin-top: 50px;
 }
 
 #request-button:hover {
-  background-color: #5AA5DA;
+  background-color: #5aa5da;
   border-color: #ffffff;
   margin-top: 50px;
 }
 
 .button-checks {
-  background-color: #5AA5DA91;
+  background-color: #5aa5da91;
   border-color: #ffffff;
 }
 
 .button-checks:hover {
-  background-color: #5AA5DA;
+  background-color: #5aa5da;
   border-color: #ffffff;
 }
 
 .button-checks:not(:disabled):not(.disabled).active {
   color: #fff;
-  background-color: #5AA5DA;
+  background-color: #5aa5da;
   border-color: #ffffff;
 }
 
@@ -676,24 +677,27 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #F8F9FA;
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #f8f9fa;
   opacity: 1; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #F8F9FA;
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #f8f9fa;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
-  color: #F8F9FA;
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #f8f9fa;
 }
 
-.platform-button{
+.platform-button {
   padding: 12px 16px;
   font-size: 1rem; /* 16px*/
   line-height: 1.5;
@@ -702,12 +706,12 @@ input[type=number] {
   border: 1px solid gray;
 }
 
-.platform-button:hover{
+.platform-button:hover {
   background-color: #212529;
   color: white;
 }
 
-.platform-button-green{
+.platform-button-green {
   padding: 12px 16px;
   font-size: 1rem; /* 16px*/
   line-height: 1.5;
@@ -716,12 +720,12 @@ input[type=number] {
   border: none;
 }
 
-.platform-button-green:hover{
+.platform-button-green:hover {
   background-color: #212529;
   color: white;
 }
 
-.platform-button-revert{
+.platform-button-revert {
   padding: 12px 16px;
   font-size: 1rem; /* 16px*/
   line-height: 1.5;
@@ -731,47 +735,47 @@ input[type=number] {
   color: white;
 }
 
-.platform-button-revert:hover{
-  background-color: #F8F9FA;
+.platform-button-revert:hover {
+  background-color: #f8f9fa;
   color: #212529;
 }
 
-.footer{
+.footer {
   background-color: #f5f5f5;
   justify-content: flex-end;
 }
 
-.sell-transfer-buttons{
+.sell-transfer-buttons {
   border-top: 1px solid lightgrey;
   justify-content: flex-end;
 }
 
-.create-cards{
+.create-cards {
   height: 60vh;
 }
 
-.create-quantity-left{
+.create-quantity-left {
   width: 15%;
 }
 
-.create-quantity-center{
+.create-quantity-center {
   width: 20%;
 }
 
-.create-quantity-right{
+.create-quantity-right {
   width: 15%;
 }
 
-.main-section{
+.main-section {
   /* height: 85vh; */
   width: 100%;
 }
 
-.separator{
+.separator {
   width: 100%;
 }
 
-.separator-text{
+.separator-text {
   text-align: left;
   position: absolute;
   width: 50%;
@@ -783,176 +787,175 @@ input[type=number] {
 }
 
 @media (max-width: 1000px) {
-  .banner-text{
+  .banner-text {
     font-size: 1.8rem;
   }
 
-  .separator{
+  .separator {
     width: 115%;
   }
 
-  .banner-catalogo-text{
+  .banner-catalogo-text {
     font-size: 20px;
   }
 
-  .banner-description{
+  .banner-description {
     font-size: 0.7rem;
   }
 
-  .section-button{
+  .section-button {
     width: 20%;
   }
 
-  .banner-button{
+  .banner-button {
     font-size: 20px;
   }
 
-  .sub-banner-text{
+  .sub-banner-text {
     font-size: 15px;
   }
 
-  .sub-banner-title{
+  .sub-banner-title {
     margin: 4rem auto 4rem auto;
   }
 
-  .sub-banner-title-search{
+  .sub-banner-title-search {
     margin: 4rem auto 2rem auto;
   }
 }
 
 @media (max-width: 800px) {
-  .banner-text{
+  .banner-text {
     font-size: 1.4rem;
   }
 
-  .separator{
+  .separator {
     width: 135%;
   }
 
-  .banner-catalogo-text{
+  .banner-catalogo-text {
     font-size: 15px;
   }
 
-  .banner-description{
+  .banner-description {
     font-size: 0.6rem;
   }
 
-  .section-button{
+  .section-button {
     width: 25%;
   }
 
-  .banner-button{
+  .banner-button {
     font-size: 15px;
     width: 35%;
   }
 
-  .sub-banner-text{
+  .sub-banner-text {
     font-size: 10px;
   }
 
-  .sub-banner-title{
+  .sub-banner-title {
     margin: 3rem auto 3rem auto;
   }
 
-  .sub-banner-title-search{
+  .sub-banner-title-search {
     margin: 3rem auto 2rem auto;
   }
 }
 
 @media (max-width: 600px) {
-  .main-section{
+  .main-section {
     padding-top: 5vh !important;
   }
 
-  .separator-text{
+  .separator-text {
     text-align: center;
     width: 100%;
   }
 
-  .separator{
+  .separator {
     width: 150%;
   }
 
-  .banner-description{
+  .banner-description {
     font-size: 0.5rem;
   }
 
-  .banner-catalogo-text{
+  .banner-catalogo-text {
     font-size: 15px;
   }
 
-  .banner-text{
+  .banner-text {
     font-size: 1.1rem;
   }
 
-  .section-button{
+  .section-button {
     width: 25%;
   }
 
-  .banner-button{
+  .banner-button {
     font-size: 10px;
     width: 60%;
   }
 
-  .sub-banner-text{
+  .sub-banner-text {
     font-size: 12px;
   }
 
-  .sub-banner-title{
+  .sub-banner-title {
     margin: 2rem auto 2rem auto;
   }
 
-  .sub-banner-title-search{
+  .sub-banner-title-search {
     margin: 2rem auto 2rem auto;
   }
 
-  .item-card-photo{
+  .item-card-photo {
     width: 100% !important;
     margin-bottom: 3rem !important;
   }
 
-  .footer{
+  .footer {
     justify-content: center;
   }
 
-  .item-container-1{
+  .item-container-1 {
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     padding-bottom: 7vh !important;
   }
 
-  .item-container{
+  .item-container {
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  .sell-offers{
+  .sell-offers {
     font-size: 0.8rem !important;
     text-align: center;
   }
 
-  .sell-transfer-buttons{
+  .sell-transfer-buttons {
     justify-content: flex-start !important;
   }
 
-  .create-cards{
+  .create-cards {
     margin-top: 1vh !important;
   }
 
-  .create-quantity-left{
+  .create-quantity-left {
     width: 30%;
   }
 
-  .create-quantity-center{
+  .create-quantity-center {
     width: 40%;
   }
 
-  .create-quantity-right{
+  .create-quantity-right {
     width: 30%;
   }
-
 }
 // Home Page
 .home-page {
@@ -982,7 +985,7 @@ input[type=number] {
           padding: 30px 5%;
         }
         .slugen1 {
-          // font-family: "Metropolis";
+          font-family: "Sofia Pro Black";
           font-style: normal;
           font-weight: 400;
           font-size: 43px;
@@ -996,11 +999,11 @@ input[type=number] {
           }
         }
         .slugen2 {
-          // font-family: "Metropolis";
+          font-family: "Open Sans";
           font-style: normal;
-          font-weight: 700;
-          font-size: 50px;
-          line-height: 91.9%;
+          font-weight: light;
+          font-size: 28px;
+          line-height: 34px;
           color: #ea701d;
           @include media("<=desktop") {
             font-size: 32px;

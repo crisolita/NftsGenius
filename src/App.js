@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./css/App.scss";
 
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
 import { Route, Routes } from "react-router-dom";
@@ -24,7 +24,7 @@ function App() {
         <Route exact path="/catalogo" element={<MyNFTs />} />
         <Route exact path="/item/:id" element={<Item />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

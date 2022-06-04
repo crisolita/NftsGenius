@@ -7,10 +7,11 @@ const Main = () => {
       <div className="home-sec flex aic">
         <div className="left flex flex-col  jc">
           <div className="meta flex flex-col">
-            <div className="slugen1">Descubre GENIUS </div>
+            <div className="slugen1" style={{ fontWeight: "bold" }}>
+              108 NFT colección GENIUS
+            </div>
             <div className="slugen2">
-              la colección de 108 NFT que te da acceso al Club de empresarios de
-              Miquel Baixas
+              Acceso al Club de empresarios de Miquel Baixas
             </div>
           </div>
           <div className="actions flex aic">
@@ -20,7 +21,11 @@ const Main = () => {
           </div>
         </div>
         <div className="rigth flex aic jc">
-          <img src="./images/home-bg.svg" className="img" />
+          <img
+            src="./images/geniusNftGif.gif"
+            style={{ maxWidth: "600px", objectFit: "contain" }}
+            className="img"
+          />
         </div>
       </div>
       <div className="disco-nfts flex flex-col">
