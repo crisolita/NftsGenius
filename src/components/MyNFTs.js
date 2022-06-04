@@ -55,7 +55,8 @@ export const MyNFTs = () => {
     //   19648490
     // );
     let tempArr = [];
-    let sliceArr = tokens.slice(-11);
+    let sliceArr = tokens;
+    // let sliceArr = tokens.slice(-11);
     for (var i = 0; i < sliceArr.length - 1; i++) {
       let tempObj = {};
       let response = await axios.get(
@@ -187,6 +188,7 @@ export const MyNFTs = () => {
                 />
               ) : (
                 <img
+                  loading="lazy"
                   src={`https://ipfs.infura.io/ipfs/${o.image
                     .split("ipfs://")
                     .join("")}`}
