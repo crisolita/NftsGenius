@@ -6,7 +6,13 @@ import Header from "./components/Header";
 // import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
-import { Route, Routes } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Route,
+  Routes,
+  Switch,
+  Link,
+} from "react-router-dom";
 import CreateNFT from "./components/CreateNFT";
 import MyNFTs from "./components/MyNFTs";
 import Item from "./components/Item";

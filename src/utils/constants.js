@@ -1514,8 +1514,8 @@ export const NFT1155_abi = [
     type: "function",
   },
 ];
-export const marketplace_address = "0x6484e86bB27dB01C8be713Cb4Cd9142244ff0e2c";
-export const NFT1155_address = "0x22579232C06149354A902E0c25acba1f250bcF48";
+export const marketplace_address = "0xEC3D6146C454AB3262050D526513318d69c6e517";
+export const NFT1155_address = "0x36e823aDb470996573d0fea4F78787Ced2251bA5";
 export const categorias = ["Generico"];
 export const DEPLOY_BLOCK = 9495730;
 export const DEFAULT_ADMIN =
