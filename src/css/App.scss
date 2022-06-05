@@ -289,7 +289,7 @@ body {
         .item {
           cursor: pointer;
           margin-left: 26px;
-          font-family: "Ubuntu";
+          font-family: "Sofia Pro Black";
           font-style: normal;
           font-weight: 500;
           font-size: 12px;
@@ -1061,6 +1061,7 @@ input[type="number"] {
       }
       .disco-tag {
         padding: 30px 0;
+        font-family: "Sofia Pro Black";
         font-style: normal;
         font-weight: 500;
         font-size: 35px;
@@ -1068,6 +1069,7 @@ input[type="number"] {
         text-align: center;
         color: #000000;
         .lbl-b {
+          font-family: "Sofia Pro Black";
           margin-left: 10px;
           color: #ea701d !important;
         }

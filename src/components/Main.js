@@ -15,7 +15,11 @@ const Main = () => {
             </div>
           </div>
           <div className="actions flex aic">
-            <Link to="/catalogo" className="btn button">
+            <Link
+              to="/catalogo"
+              className="btn button"
+              style={{ fontFamily: "Sofia Pro Black" }}
+            >
               Acceso a la colección
             </Link>
           </div>

@@ -92,6 +92,7 @@ const Item = () => {
               ) : (
                 <img
                   src={item?.data?.image}
+                  loading="lazy"
                   style={{
                     height: "100%",
                     width: "100%",

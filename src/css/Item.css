@@ -250,3 +250,18 @@
   background: #7a52f4;
   color: #ffffff;
 }
+.loading-title {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+.loading-title-text {
+  font-family: "Sofia Pro Black";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  /* line-height: 18px; */
+}

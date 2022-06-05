@@ -94,6 +94,7 @@ const Header = ({ openSidebar, setOpenSidebar }) => {
             className="btn button"
             margin-left="20px"
             onClick={handleConnect}
+            style={{ fontFamily: "Sofia Pro Black" }}
           >
             {active ? "Conectado" : "Conectar Wallet"}
           </button>

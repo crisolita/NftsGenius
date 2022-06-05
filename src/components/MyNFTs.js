@@ -25,6 +25,7 @@ import { EventEmitter } from "stream";
 export const MyNFTs = () => {
   const DEPLOY_BLOCK = 19473866;
   const { account, library } = useWeb3React();
+  const [isLoading, setisLoading] = useState(false);
   const [NFTcontract, setNFTcontract] = useState();
   const [MRKTcontract, setMRKTcontract] = useState();
   const [allNFTs, setAllNFTs] = useState([]);
@@ -43,7 +44,8 @@ export const MyNFTs = () => {
   }, [library]);
 
   const loadNFTs = async () => {
-    let allEvents = [];
+    setisLoading(true);
+    // let allEvents = [];
     const { tokens } = await client.request(GET_ERC1155_NEWS());
     // const { sales } = await client.request(GET_SALES());
     // console.log(tokens, "los NFTs");
@@ -122,6 +124,7 @@ export const MyNFTs = () => {
     //   }
 
     setAllNFTs(tempArr);
+    setisLoading(false);
   };
 
   useEffect(() => {
@@ -165,51 +168,60 @@ export const MyNFTs = () => {
   }, [allNFTs]);
 
   return (
-    <div className="mynfts-container">
-      {allNFTs?.map((o) => {
-        return (
-          <Link
-            to={`/item/${o.id}`}
-            className="nft--card--container"
-            key={o.id}
-          >
-            <div className="nft--card--name">{o.name}</div>
-            <div className="nft--card--image">
-              {o?.isVideo ? (
-                <iframe
-                  title="Video"
-                  style={{ height: "100%", width: "100%" }}
-                  src={`https://ipfs.infura.io/ipfs/${o.image
-                    .split("ipfs://")
-                    .join("")}`}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : (
-                <img
-                  loading="lazy"
-                  src={`https://ipfs.infura.io/ipfs/${o.image
-                    .split("ipfs://")
-                    .join("")}`}
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              )}
-            </div>
+    <>
+      {isLoading ? (
+        <div className="loading-title">
+          <Spinner animation="grow" variant="success" />
+          <div className="loading-title-text">Cargando espere unos minutos</div>
+        </div>
+      ) : (
+        <div className="mynfts-container">
+          {allNFTs?.map((o) => {
+            return (
+              <Link
+                to={`/item/${o.id}`}
+                className="nft--card--container"
+                key={o.id}
+              >
+                <div className="nft--card--name">{o.name}</div>
+                <div className="nft--card--image">
+                  {o?.isVideo ? (
+                    <iframe
+                      title="Video"
+                      style={{ height: "100%", width: "100%" }}
+                      src={`https://ipfs.infura.io/ipfs/${o.image
+                        .split("ipfs://")
+                        .join("")}`}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <img
+                      loading="lazy"
+                      src={`https://ipfs.infura.io/ipfs/${o.image
+                        .split("ipfs://")
+                        .join("")}`}
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
+                </div>
 
-            <div className="nft--card--details">
-              <div className="nft--card--details-price">
-                {o?.price && o.price + " BNB"}
-              </div>
-            </div>
-          </Link>
-        );
-      })}
-    </div>
+                <div className="nft--card--details">
+                  <div className="nft--card--details-price">
+                    {o?.price && o.price + " BNB"}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 };
 export default MyNFTs;
