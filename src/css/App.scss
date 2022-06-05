@@ -1,6 +1,10 @@
 @import "./Colors.scss";
 @import "./Props.scss";
 @import "./media.scss";
+@font-face {
+  font-family: "Sofia Pro Black";
+  src: url("sofia.ttf") format("truetype");
+}
 
 .font,
 body {
