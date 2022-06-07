@@ -35,7 +35,8 @@ const Main = () => {
       <div className="disco-nfts flex flex-col">
         <div className=" wrap flex flex-col">
           <div className="disco-tag flex jc">
-            DESCUBRE <div className="lbl-b">NUESTROS NFTs</div>
+            CONECTA TU METAMASK Y DESCUBRE
+            <div className="lbl-b">NUESTROS NFTs</div>
           </div>
 
           <MyNFTs />

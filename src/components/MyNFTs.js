@@ -122,6 +122,13 @@ export const MyNFTs = () => {
     //         lowerPrice = parseFloat(x.price);
     //     }
     //   }
+    tempArr = tempArr.sort((a, b) =>
+      parseInt(a.id) < parseInt(b.id)
+        ? -1
+        : parseInt(b.id) > parseInt(a.id)
+        ? 1
+        : 0
+    );
 
     setAllNFTs(tempArr);
     setisLoading(false);
