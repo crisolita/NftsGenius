@@ -8,6 +8,8 @@ import { client, GET_SALES } from "../querys/subgraph";
 import ItemLogic from "./ItemLogic";
 const Item = () => {
   const [isNftBuyable, setisNftBuyable] = useState(false);
+  const [orderHistory, setisorderHistory] = useState([]);
+  const [orderHistoryLoading, setisorderHistoryLoading] = useState(false);
   const {
     id,
     buy,
@@ -22,7 +24,6 @@ const Item = () => {
     transfer,
     transferTo,
     transferAmount,
-    isItemOwner,
     showModal,
     loadingBuy,
     loadingSell,
@@ -34,6 +35,7 @@ const Item = () => {
     loadingTransfer,
     itemPrice,
     isOwnerAmount,
+    MRKTcontract,
     // ownerContent,
     // amountOwn
   } = ItemLogic();
@@ -48,13 +50,34 @@ const Item = () => {
   useEffect(() => {
     isBuyableNftHandler();
   }, []);
+  useEffect(() => {
+    if (MRKTcontract) {
+      getOrders();
+    }
+  }, [MRKTcontract]);
+  const getOrders = async () => {
+    setisorderHistoryLoading(true);
+    const { sales } = await client.request(GET_SALES());
+    sales.map(async (o) => {
+      if (parseInt(o.tokenID) === parseInt(id)) {
+        let orderDetails = await MRKTcontract.orders(o.id);
+        console.log(orderDetails);
+        setisorderHistory(() => [orderDetails]);
+        // setisorderHistory((prev) => [...prev, orderDetails]);
+      }
+    });
+    setisorderHistoryLoading(false);
+  };
 
   const isBuyableNftHandler = async () => {
     const { sales } = await client.request(GET_SALES());
     sales.map((o) => {
-      if (parseInt(o.tokenID) === parseInt(id)) return setisNftBuyable(o);
+      if (parseInt(o.tokenID) === parseInt(id)) {
+        setisNftBuyable(o);
+      }
     });
   };
+
   const BuyToken = () => {
     buy({
       orderId: isNftBuyable.id,
@@ -147,9 +170,74 @@ const Item = () => {
                 <div className="nft-detail-info-creator-title">URL externo</div>
                 {item.data?.attributes[3]?.externalUrl}
               </div>
+              <div className="nft-detail-info-divider" />
+              {orderHistory.map((o) => {
+                return (
+                  <>
+                    <div className="nft-detail-info-stats">
+                      <div className="nft-detail-info-stats-option">
+                        <div
+                          className="nft-detail-info-stats-option-title"
+                          style={{
+                            fontSize: "18px",
+                            color: o.active ? "green" : "red",
+                          }}
+                        >
+                          {o.active ? "Activo" : "No Activo"}
+                        </div>
+                        <div className="nft-detail-info-stats-option-value">
+                          Estado
+                        </div>
+                      </div>
+                      <div className="nft-detail-info-stats-option">
+                        <div
+                          className="nft-detail-info-stats-option-title"
+                          style={{ fontSize: "18px" }}
+                        >
+                          {o.seller.substring(0, 3) +
+                            "..." +
+                            o.seller.substring(39, 42)}
+                        </div>
+                        <div className="nft-detail-info-stats-option-value">
+                          Usuario
+                        </div>
+                      </div>
+                    </div>
+                    <div className="nft-detail-info-stats">
+                      <div className="nft-detail-info-stats-option">
+                        <div
+                          className="nft-detail-info-stats-option-title"
+                          style={{ fontSize: "12px" }}
+                        >
+                          {parseInt(o.amount.toString()) + " BNB"}
+                        </div>
+                        <div className="nft-detail-info-stats-option-value">
+                          Precio Unit
+                        </div>
+                      </div>
+                      <div className="nft-detail-info-stats-option">
+                        <div className="nft-detail-info-stats-option-title">
+                          {o.amount.toString()}
+                        </div>
+                        <div className="nft-detail-info-stats-option-value">
+                          Cantidad
+                        </div>
+                      </div>
+                      <div className="nft-detail-info-stats-option">
+                        <div className="nft-detail-info-stats-option-title">
+                          {parseInt(o.amount.toString()) *
+                            parseInt(o.amount.toString())}
+                        </div>
+                        <div className="nft-detail-info-stats-option-value">
+                          Precio Total
+                        </div>
+                      </div>
+                    </div>
+                    <div className="nft-detail-info-divider" />
+                  </>
+                );
+              })}
 
-              {/* <div className="nft-detail-info-divider" /> */}
-              {console.log(isNftBuyable)}
               {!!isNftBuyable && (
                 <>
                   <div className="nft-detail-info-stats">
@@ -174,24 +262,27 @@ const Item = () => {
               )}
 
               {isOwnerAmount > 0 ? (
-                <div className="nft-detail-info-container-button-double">
-                  <button
-                    disabled={loadingTransfer}
-                    type="button"
-                    onClick={() => setShowModalTransfer(true)}
-                    className="nft-detail-info-button"
-                  >
-                    Transferir
-                  </button>
-                  <button
-                    disabled={loadingBuy}
-                    type="button"
-                    onClick={() => setShowModal(true)}
-                    className="nft-detail-info-button"
-                  >
-                    Vender
-                  </button>
-                </div>
+                <>
+                  <br />
+                  <div className="nft-detail-info-container-button-double">
+                    <button
+                      disabled={loadingTransfer}
+                      type="button"
+                      onClick={() => setShowModalTransfer(true)}
+                      className="nft-detail-info-button"
+                    >
+                      Transferir
+                    </button>
+                    <button
+                      disabled={loadingBuy}
+                      type="button"
+                      onClick={() => setShowModal(true)}
+                      className="nft-detail-info-button"
+                    >
+                      Vender
+                    </button>
+                  </div>
+                </>
               ) : (
                 <div className="nft-detail-info-container-button">
                   {!!isNftBuyable && (

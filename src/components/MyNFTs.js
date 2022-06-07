@@ -47,9 +47,7 @@ export const MyNFTs = () => {
     setisLoading(true);
     // let allEvents = [];
     const { tokens } = await client.request(GET_ERC1155_NEWS());
-    // const { sales } = await client.request(GET_SALES());
-    // console.log(tokens, "los NFTs");
-    // console.log(sales, "las ventas");
+    const { sales } = await client.request(GET_SALES());
 
     // const events = await NFTcontract.queryFilter(
     //   NFTcontract.filters.newNFT(),
@@ -71,7 +69,11 @@ export const MyNFTs = () => {
       tempObj.id = sliceArr[i].id;
       tempObj.amount = sliceArr[i].amount;
       tempObj.creator = sliceArr[i].creator;
-      tempObj.price = "1";
+      sales.map((o) => {
+        if (parseInt(o.tokenID) === parseInt(tempObj.id))
+          return (tempObj.price = parseInt(o.price) / 1000000000000000000);
+      });
+
       tempArr.push(tempObj);
     }
     // for (const element of events) {

@@ -1514,6 +1514,10 @@ export const NFT1155_abi = [
     type: "function",
   },
 ];
+//testnet
+// export const marketplace_address = "0x683a6d3dCBCCb572e45999EDF71D1D5f41D8430A";
+// export const NFT1155_address = "0x93bcFE6ffa4CF7A40692E9c4153c2262C6Cf7BE1";
+//mainnet
 export const marketplace_address = "0xEC3D6146C454AB3262050D526513318d69c6e517";
 export const NFT1155_address = "0x36e823aDb470996573d0fea4F78787Ced2251bA5";
 export const categorias = ["Generico"];

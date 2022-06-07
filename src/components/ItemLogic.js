@@ -77,7 +77,7 @@ const ItemLogic = () => {
         isVideo,
         creator: itemData.creator,
       });
-      getOrders();
+      // getOrders();
       setLoading(false);
       if (account && NFTcontract) {
         let own = await NFTcontract.balanceOf(account, id);
@@ -90,40 +90,7 @@ const ItemLogic = () => {
       from: account,
     });
   };
-  const getOrders = async () => {
-    try {
-      //   if (library) {
-      //     let sellOrders = await contracts.marketplace.getPastEvents("Sell", {
-      //       fromBlock: DEPLOY_BLOCK,
-      //       toBlock: "latest",
-      //     });
-      //     let toOrder = [];
-      //     let lowerPrice = 0;
-      //     for (const element of sellOrders) {
-      //       const order = element.returnValues;
-      //       if (order.tokenId === id) {
-      //         const details = await contracts.marketplace.methods
-      //           .orders(order.orderId);
-      //         if (details.active) {
-      //           let x = {};
-      //           x.orderId = details.orderId;
-      //           x.seller = details.seller;
-      //           x.amount = Number(details.amount);
-      //           x.price = web3.utils.fromWei(String(details.price));
-      //           if (lowerPrice === 0) lowerPrice = parseFloat(x.price);
-      //           if (parseFloat(x.price) < lowerPrice)
-      //             lowerPrice = parseFloat(x.price);
-      //           toOrder.push(x);
-      //         }
-      //       }
-      //     }
-      //     setSellOffers(toOrder);
-      //     setItemPrice(lowerPrice);
-      //   }
-    } catch (error) {
-      console.log(`error`, error);
-    }
-  };
+
   const buy = async (order) => {
     if (account) {
       setLoadingBuy(true);
@@ -141,6 +108,9 @@ const ItemLogic = () => {
   const sell = async () => {
     try {
       if (account) {
+        console.log("iddd", id);
+        console.log("AQUI ESTA EL PRECIO CRISOL", sellPrice);
+        console.log("CANTIDAD", sellAmount);
         setLoadingSell(true);
         let approved = await NFTcontract.isApprovedForAll(
           account,
@@ -186,6 +156,7 @@ const ItemLogic = () => {
   const itemOwner = async () => {
     if (account && NFTcontract) {
       let amount = await NFTcontract.balanceOf(account, id);
+      console.log(amount.toString());
       setisOwnerAmount(parseInt(amount.toString()));
     }
   };
@@ -203,9 +174,7 @@ const ItemLogic = () => {
     showOwnerContent().then((data) => {
       setOwnerContent(data);
     });
-    itemOwner().then((resp) => {
-      setIsItemOwner(resp);
-    });
+    itemOwner();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account, NFTcontract]);
 
@@ -226,7 +195,6 @@ const ItemLogic = () => {
     loadingBuy,
     loadingSell,
     loading,
-    isItemOwner,
     item,
     sellOffers,
     sellPrice,
@@ -238,6 +206,7 @@ const ItemLogic = () => {
     setSellAmount,
     sellAmount,
     isOwnerAmount,
+    MRKTcontract,
   };
 };
 

@@ -2,6 +2,7 @@ const { GraphQLClient } = require("graphql-request");
 const { gql } = require("graphql-tag");
 
 const client = new GraphQLClient(
+  // "https://api.thegraph.com/subgraphs/name/crisolita/testnetpues"
   "https://api.thegraph.com/subgraphs/name/crisolita/nftandmarketmainnet"
 );
 

@@ -43,8 +43,8 @@ const Header = ({ openSidebar, setOpenSidebar }) => {
     try {
       let thisAccount = await MRKTcontract.hasRole(DEFAULT_ADMIN, account);
       setIsAdmin(thisAccount);
-    } catch (ex) {
-      console.log(ex);
+    } catch (err) {
+      console.log("no eres admin");
     }
   };
 
@@ -84,7 +84,9 @@ const Header = ({ openSidebar, setOpenSidebar }) => {
         {isAdmin && (
           <>
             <button className="btn button" margin-left="20px">
-              <Link to="/CreateNFT">Crear NFT</Link>
+              <Link to="/CreateNFT" style={{ fontFamily: "Sofia Pro Black" }}>
+                Crear NFT
+              </Link>
             </button>
           </>
         )}
